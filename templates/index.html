@@ -1,2 +1,10 @@
 {% extends 'csv_main/layouts/main-layout.html' %}
 
+
+{% block body %}
+{% if user.is_authenticated %}
+    <p> Future forms will be here ( for generating csv ) </p>
+{% else %}
+    <p> In order to see the content you must authenticate! You can login <a href="{% url 'login' %}">here</a></p>
+{% endif %}
+{% endblock %}

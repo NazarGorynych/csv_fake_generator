@@ -3,4 +3,4 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 
 def index(request):
-    return render()
+    return render(request, 'index.html')
