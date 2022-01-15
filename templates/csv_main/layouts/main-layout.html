@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}My Generator{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'csv_main/styles/base.css' %}">
+    {% block site_css %}{% endblock %}
+</head>
+<body>
+   <header>
+   </header>
+   <main>
+        {% block body %}
+        {% endblock %}
+   </main>
+    <footer>
+    </footer>
+</body>
+</html>
