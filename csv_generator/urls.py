@@ -21,7 +21,6 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('csv_main.urls')),
-    path('', include('django.contrib.auth.urls')),
 
     # path('', RedirectView.as_view(url='csv'))
 ]
