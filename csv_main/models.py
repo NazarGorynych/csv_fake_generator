@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class DataScheme(models.Model):
     scheme_name = models.CharField('DataScheme name', max_length=30)
     created_date = models.DateField(auto_now_add=True)
@@ -9,16 +8,14 @@ class DataScheme(models.Model):
 
 
 class DataSchemeColumn(models.Model):
-    CHARFIELD_CHOICES = (
-        'Company',
-        'Job',
-        'Full name'
-    )
+
     TYPE_CHOICES = (
-        models.IntegerField(),
-        models.CharField(choices=CHARFIELD_CHOICES),
+        ('Company', 'Company'),
+        ('Job', 'Job'),
+        ('Age', 'Age'),
     )
 
     column_name = models.CharField('ColumName', max_length=30)
     parent_scheme = models.ForeignKey(DataScheme, on_delete=models.CASCADE)
-    type = TYPE_CHOICES
+    # type = models.IntegerField()
+    type = models.CharField(max_length=30, choices=TYPE_CHOICES, default=None)

@@ -1,0 +1,19 @@
+{% extends 'csv_main/layouts/main-layout.html' %}
+
+{% block body%}
+<form method="POST" id="form-container">
+    {% csrf_token %}
+    {{ schema_form }}
+    {{ column_formset.managment_form }}
+    {% for form in column_formset %}
+        <div class='bird-form'>
+        {{ form.as_p }}
+        </div>
+    {% endfor %}
+    <button id="add-form" type="button">Add Another Column</button>
+    <button type="submit" >Submit</button>
+</form>
+
+
+
+{% endblock %}
