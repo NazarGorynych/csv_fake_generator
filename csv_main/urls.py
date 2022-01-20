@@ -8,5 +8,5 @@ urlpatterns = [
     path('data-schemes/', views.data_schema_view, name='data-scheme'),
     path('schema-creation/', views.schema_creation, name='schema-creation'),
     path('delete-schema/<int:id>/', views.delete_schema, name='delete-schema'),
-    # path('get_user/', views.get_user, name='get-user')
+    path('data-sets/', views.data_sets, name='data-sets'),
 ]

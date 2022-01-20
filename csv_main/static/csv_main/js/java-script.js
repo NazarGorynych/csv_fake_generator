@@ -1,6 +1,6 @@
 
 let columnForm = document.querySelectorAll(".bird-form")
-    let container = document.querySelector("#form-container")
+    let container = document.querySelector("#bird")
     let addButton = document.querySelector("#add-form")
     let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
 
@@ -19,3 +19,4 @@ let columnForm = document.querySelectorAll(".bird-form")
 
         totalForms.setAttribute('value', `${formNum+1}`)
     }
+

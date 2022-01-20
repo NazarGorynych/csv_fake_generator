@@ -18,6 +18,7 @@ class DataSchemeCreationForm(ModelForm):
 
 class DataSchemeColumnCreationForm(ModelForm):
 
+
     class Meta:
         model = DataSchemeColumn
         fields = '__all__'
