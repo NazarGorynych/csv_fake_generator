@@ -9,4 +9,6 @@ urlpatterns = [
     path('schema-creation/', views.schema_creation, name='schema-creation'),
     path('delete-schema/<int:id>/', views.delete_schema, name='delete-schema'),
     path('data-sets/', views.data_sets, name='data-sets'),
+    path('data-generation/<int:id>', views.data_generation, name='data-generation'),
+    path('data-download/<path:file>', views.data_download, name='data-download')
 ]

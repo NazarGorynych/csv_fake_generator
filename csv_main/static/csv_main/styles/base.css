@@ -21,3 +21,8 @@ table tbody tr th::before {
 table tbody tr th::before {
     content: counter(section);
 }
+
+.actv {
+    background: grey;
+    color: black;
+}

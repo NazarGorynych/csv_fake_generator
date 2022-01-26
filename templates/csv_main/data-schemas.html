@@ -1,0 +1,33 @@
+{% extends 'csv_main/layouts/main-layout.html' %}
+
+{% block body%}
+    <div class="container" style="margin-left: 5%">
+        <br>
+        <h2 style="display: inline-block">Data Schemes</h2>
+        <a href="{% url 'schema-creation' %}" style="float: right; padding: 10px; margin-right: 5%" class="btn btn-success"> &nbsp New schema &nbsp</a>
+        <br><br>
+            <div class="container-md">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="p-3">#</th>
+                      <th scope="col" class="p-3">Title</th>
+                      <th scope="col" class="p-3">Modified</th>
+                      <th scope="col" class="p-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for schema in schemas_query %}
+                    <tr>
+                      <th scope="row" class="p-3"></th>
+                      <td class="p-3">{{ schema.scheme_name }}</td>
+                      <td class="p-3">{{ schema.created_date }}</td>
+                      <td class="p-3"><a class="text-decoration-none" href="">Edit scheme</a> &nbsp
+                          <a style="color: red" class="text-decoration-none" href="{% url 'delete-schema' schema.id %}">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+    </div>
+{% endblock %}

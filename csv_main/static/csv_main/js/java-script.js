@@ -20,3 +20,8 @@ let columnForm = document.querySelectorAll(".bird-form")
         totalForms.setAttribute('value', `${formNum+1}`)
     }
 
+
+$("#btn-id").click(function(){
+  $(document).find("#btn-id").removeClass("actv");
+  $(this).addClass("actv");
+});

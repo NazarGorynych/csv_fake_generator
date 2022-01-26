@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'csv_main/layouts/main-layout.html' %}
+{% load widget_tweaks %}
 
-</body>
-</html>
+{% block body%}
+    <div class="container" style="margin-left: 5%">
+        <br>
+        <form method="POST">
+          {% csrf_token %}
+            <div class="row g-3 align-items-center" style="float:left;">
+                <h2 style="display: inline-block">Data Sets</h2>
+            </div>
+            <div class="row g-3 align-items-center" style="float: right">
+
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">Rows: </label>
+              </div>
+              <div class="col-auto">
+                  {% render_field rows.rows_quantity class='form-control' %}
+              </div>
+
+              <div class="col-auto"  style="float: right">
+                  <button id="btn-id" type="submit" class="btn btn-success">Confirm</button>
+              </div>
+            </div>
+        </form>
+
+            <div class="container-md">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="p-3">#</th>
+                      <th scope="col" class="p-3">Name</th>
+                      <th scope="col" class="p-3">Date</th>
+                      <th scope="col" class="p-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for schema in schemas_query %}
+                    <tr>
+                      <th scope="row" class="p-3"></th>
+                      <td class="p-3">{{ schema.scheme_name }}</td>
+                      <td class="p-3">{{ schema.created_date }}</td>
+{#                      <td class="p-3"><a class="text-decoration-none" href="">Edit scheme</a> &nbsp#}
+                      <td>
+                        {% if schema.file %}
+                          <a style="color: blue" class="text-decoration-none" href="{% url 'data-download' schema.file %}" type="submit">Download</a>
+                          <a style="color: green" class="text-decoration-none" href="{% url 'data-generation' schema.id %}" type="submit">Generate new</a>
+                        {% else %}
+                          <a style="color: green" class="text-decoration-none" href="{% url 'data-generation' schema.id %}" type="submit">Generate</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+    </div>
+
+{% endblock %}

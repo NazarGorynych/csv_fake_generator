@@ -8,6 +8,7 @@ class DataScheme(models.Model):
     scheme_name = models.CharField('DataScheme name', max_length=30)
     created_date = models.DateField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    file = models.FileField(blank=False)
 
     def __str__(self):
         return self.scheme_name
