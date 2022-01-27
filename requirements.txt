@@ -19,7 +19,6 @@ django-jquery-js==3.1.1
 django-on-heroku==1.1.2
 django-widget-tweaks==1.4.12
 Faker==11.3.0
-heroku==0.1.4
 idna==3.3
 kombu==5.2.3
 packaging==21.3
