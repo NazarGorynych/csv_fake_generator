@@ -5,7 +5,6 @@
 <form method="POST" id="form-container">
     <div class="container" style="max-width: 87%">
         {% csrf_token %}
-{#        {{ formset.media }}#}
         <br>
         <h5 style="display: inline-block">New schema</h5>
 
@@ -26,15 +25,13 @@
                 <div class='bird-form'>
                     <ul class="list-inline">
                         <li class="list-inline-item"><label>Column name</label>{% render_field form.column_name class='form-control' %}</li>
-                        {% if form.type == 'Age' %}
-                            <li class="list-inline-item"><label>Type</label>{% render_field form.type  class='form-select' style='width: 300px' %}</li>
 
-                        {% endif %}
                         <li class="list-inline-item"><label>Type</label>{% render_field form.type  class='form-select' style='width: 300px' %}</li>
 
                         <li class="list-inline-item" style="float: right"><label>Order</label>{% render_field form.order class='form-control' %}</li>
-{#                        <li><button type="button" value="Delete" onclick="deleteRow(this)">delete</button>#}
-{#                           </li>#}
+                        {% if column_formset.can_delete %}
+                            <li class="list-inline-item" style="float: right"><label>Delete</label>{% render_field form.DELETE class='form-control' %}</li>
+                        {% endif %}
                         {{ form.parent_scheme }}
                     </ul>
                 </div>

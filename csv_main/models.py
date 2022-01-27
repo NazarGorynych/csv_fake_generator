@@ -17,12 +17,15 @@ class DataScheme(models.Model):
 class DataSchemeColumn(models.Model):
 
     TYPE_CHOICES = (
-        ('Company', 'Company'),
+        ('Name', 'Name'),
         ('Email', 'Email'),
         ('Job', 'Job'),
-        ('Company name', 'Company name'),
-        ('Text', 'Text')
-        # ('Age', 'Age'),
+        ('Phone Number', 'Phone Number'),
+        ('Text', 'Text'),
+        ('Boolean', 'Boolean'),
+        ('Address', 'Address'),
+        ('Link', 'Link'),
+        ('Age', 'Age')
     )
 
     column_name = models.CharField('ColumName', max_length=30)

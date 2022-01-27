@@ -1,62 +1,58 @@
-
-from csv_generator.celery import app
 import csv
 import os
-from celery.contrib import rdb
+
+from csv_generator.celery import app
 from faker import Faker
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import DataScheme, DataSchemeColumn, User
-from django.core.files.storage import FileSystemStorage
+from faker.providers import BaseProvider
+from .models import DataScheme, DataSchemeColumn
 from django.conf import settings
 
 @app.task
 def data_generation_task(rows, id):
     fake = Faker('en_US')
+    fake.add_provider(BaseProvider)
+
+    # Get parent Schema object
     query_object = DataScheme.objects.filter(id=id)
     for object in query_object:
         schema_object = object
+
+    # File creation + generation
     csv_file_name = os.path.join(settings.MEDIA_ROOT, f'csv/{schema_object.scheme_name}')
     with open(csv_file_name, "w") as csv_file:
-        columns = DataSchemeColumn.objects.filter(parent_scheme=schema_object).order_by('order')
         column_names = []
         column_types = []
-        writer = csv.writer(csv_file)
+
+        # Find all columns of schema
+        columns = DataSchemeColumn.objects \
+            .filter(parent_scheme=schema_object).order_by('order')
+
+        # Fill in two lists two find crossection of faker dictionary
         for column in columns:
             column_names.append(column.column_name)
-
             column_types.append(column.type)
+
+        # Write first row with names of columns
+        writer = csv.writer(csv_file)
         writer.writerow(column_names)
-        column_names = set(column_names)
-        fake_list = {
-            "Company": fake.name(),
-            # "Phone Number": fake1.phone_number(),
-            "Email": fake.email(),
-            # "Address": fake.address(),
-            # "Time": fake.time(),
-            "Link": fake.url(),
-            "Text": fake.word(),
-        }
 
-        new_dict = {k: fake_list[k] for k in column_types if k in fake_list}
-
+        # Write row from crossection of values
         for row in range(int(rows)):
             value_list = {
-                "Company": fake.name(),
-                # "Phone Number": fake1.phone_number(),
+                "Name": fake.name(),
                 "Email": fake.email(),
-                # "Address": fake.address(),
-                # "Time": fake.time(),
+                "Job": fake.job(),
+                "Phone Number": fake.phone_number(),
+                "Text": fake.paragraph(nb_sentences=5),
+                "Boolean": fake.pybool(),
+                "Address": fake.address(),
                 "Link": fake.url(),
-                "Text": fake.word(),
+                "Age": fake.random_int(min=18, max=100),
             }
-            new2_dict = {key: value_list[key] for key in new_dict if key in value_list }
+            new2_dict = {key: value_list[key] for key in column_types if key in value_list }
             writer.writerow(new2_dict[key] for key in column_types)
+
+        # Save to FileField of Schema object
         schema_object.file = csv_file_name
         schema_object.save()
     return
-
-@app.task()
-def add(x, y):
-
-    temporart = DataScheme.objects.all()
-    return x + y
